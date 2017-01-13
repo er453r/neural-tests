@@ -22,7 +22,7 @@ class Test{
 	}
 
 	private function init(){
-		var size = 128;
+		var size = 4*64;
 		var d = 1;
 
 		neurons = new Vector<Neuron>(size * size);
@@ -44,7 +44,7 @@ class Test{
 
 			for(y_ in startY...endY)
 				for(x_ in startX...endX)
-					if(y_ != y && x_ != x)
+					if(y_ != y || x_ != x)
 						neuron.addInput(neurons[y_ * size + x_]);
 		}
 
