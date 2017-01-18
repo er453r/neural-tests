@@ -1,6 +1,5 @@
 package com.er453r.neural.tests;
 
-import com.er453r.neural.activations.Sigmoid;
 import js.html.Uint8ClampedArray;
 import js.html.ImageData;
 import js.html.CanvasRenderingContext2D;
@@ -9,6 +8,9 @@ import js.html.CanvasElement;
 
 import haxe.ds.Vector;
 import haxe.Timer;
+
+import com.er453r.neural.activations.WTA;
+import com.er453r.neural.activations.Sigmoid;
 
 class Test{
 	var neurons:Vector<Neuron>;
