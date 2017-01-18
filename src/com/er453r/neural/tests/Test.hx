@@ -1,5 +1,6 @@
 package com.er453r.neural.tests;
 
+import com.er453r.neural.activations.Sigmoid;
 import js.html.Uint8ClampedArray;
 import js.html.ImageData;
 import js.html.CanvasRenderingContext2D;
@@ -28,7 +29,7 @@ class Test{
 		neurons = new Vector<Neuron>(size * size);
 
 		for(n in 0...neurons.length)
-			neurons[n] = new Neuron();
+			neurons[n] = new Neuron(new Sigmoid());
 
 		for(n in 0...neurons.length){
 			var neuron:Neuron = neurons[n];
