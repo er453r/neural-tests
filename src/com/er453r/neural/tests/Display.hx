@@ -1,5 +1,6 @@
 package com.er453r.neural.tests;
 
+import com.er453r.neural.tests.colormaps.Colormap;
 import haxe.ds.Vector;
 
 import js.html.CanvasRenderingContext2D;
