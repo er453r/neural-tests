@@ -27,8 +27,8 @@ class Test{
 
 	private var network:Network;
 
-	private var width:Int = 4 * 64;
-	private var height:Int = 4 * 64;
+	private var width:Int = 2 * 64;
+	private var height:Int = 2 * 64;
 
 	public static function main(){
 		new Test();
@@ -41,7 +41,7 @@ class Test{
 	private function init(){
 		stats = Browser.document.getElementById("fps");
 		context = Display.insertCanvas(width, height);
-		network = new FlatNet(width, height);
+		network = new FlatNet(width, height, 1);
 
 		var neurons:Vector<Neuron> = network.getNeurons();
 
