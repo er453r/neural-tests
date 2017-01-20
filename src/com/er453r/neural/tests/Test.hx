@@ -1,5 +1,9 @@
 package com.er453r.neural.tests;
 
+import com.er453r.neural.tests.colormaps.Cold;
+import com.er453r.neural.tests.colormaps.Jet;
+import com.er453r.neural.tests.colormaps.Hot2;
+import com.er453r.neural.tests.colormaps.Hot;
 import haxe.ds.Vector;
 import haxe.Timer;
 
@@ -12,14 +16,15 @@ import com.er453r.neural.nets.Network;
 
 class Test{
 	private var context:CanvasRenderingContext2D;
+	private var colormap:Colormap = new Hot();
 
 	private var fps:FPS = new FPS();
 	private var stats:Element;
 
 	private var network:Network;
 
-	private var width:Int = 1 * 64;
-	private var height:Int = 1 * 64;
+	private var width:Int = 4 * 64;
+	private var height:Int = 4 * 64;
 
 	public static function main(){
 		new Test();
@@ -48,7 +53,7 @@ class Test{
 
 	private function loop(){
 		network.update();
-		Display.flatNet(network, context);
+		Display.flatNet(network, context, colormap);
 		stats.innerHTML = 'FPS ${fps.update()}';
 
 		Timer.delay(loop, 20);
