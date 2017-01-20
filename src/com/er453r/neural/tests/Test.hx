@@ -1,5 +1,9 @@
 package com.er453r.neural.tests;
 
+import com.er453r.neural.tests.colormaps.Plasma;
+import com.er453r.neural.tests.colormaps.Inferno;
+import com.er453r.neural.tests.colormaps.Magma;
+import com.er453r.neural.tests.colormaps.Viridis;
 import com.er453r.neural.tests.colormaps.Cold;
 import com.er453r.neural.tests.colormaps.Jet;
 import com.er453r.neural.tests.colormaps.Hot2;
@@ -16,7 +20,7 @@ import com.er453r.neural.nets.Network;
 
 class Test{
 	private var context:CanvasRenderingContext2D;
-	private var colormap:Colormap = new Hot();
+	private var colormap:Colormap = new Plasma();
 
 	private var fps:FPS = new FPS();
 	private var stats:Element;
