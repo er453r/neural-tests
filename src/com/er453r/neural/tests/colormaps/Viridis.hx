@@ -1,7 +1,7 @@
 package com.er453r.neural.tests.colormaps;
 
-class Viridis implements Colormap{
-	var data:Array<Array<Float>> = [
+class Viridis extends Colormap{
+	private static var data:Array<Array<Float>> = [
 		[0.267004, 0.004874, 0.329415],
 		[0.268510, 0.009605, 0.335427],
 		[0.269944, 0.014625, 0.341379],
@@ -260,17 +260,7 @@ class Viridis implements Colormap{
 		[0.993248, 0.906157, 0.143936]
 	];
 
-	public function new(){}
-
-	public function getColor(value:Float):Color{
-		if(value < 0)
-			value = 0;
-
-		if(value > 1)
-			value = 1;
-
-		var color:Array<Float> = data[Math.floor(255 * value)];
-
-		return new Color(Std.int(255 * color[0]), Std.int(255 * color[1]), Std.int(255 * color[2]));
+	public function new(buckets:UInt = 266){
+		super(data, buckets);
 	}
 }

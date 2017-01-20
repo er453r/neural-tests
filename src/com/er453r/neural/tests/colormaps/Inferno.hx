@@ -1,7 +1,7 @@
 package com.er453r.neural.tests.colormaps;
 
-class Inferno implements Colormap{
-	var data:Array<Array<Float>> = [
+class Inferno extends Colormap{
+	private static var data:Array<Array<Float>> = [
 		[0.001462, 0.000466, 0.013866],
 		[0.002267, 0.001270, 0.018570],
 		[0.003299, 0.002249, 0.024239],
@@ -260,17 +260,7 @@ class Inferno implements Colormap{
 		[0.988362, 0.998364, 0.644924]
 	];
 
-	public function new(){}
-
-	public function getColor(value:Float):Color{
-		if(value < 0)
-			value = 0;
-
-		if(value > 1)
-			value = 1;
-
-		var color:Array<Float> = data[Math.floor(255 * value)];
-
-		return new Color(Std.int(255 * color[0]), Std.int(255 * color[1]), Std.int(255 * color[2]));
+	public function new(buckets:UInt = 266){
+		super(data, buckets);
 	}
 }

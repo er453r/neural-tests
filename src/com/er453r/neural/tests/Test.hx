@@ -1,6 +1,12 @@
 package com.er453r.neural.tests;
 
-import com.er453r.neural.tests.colormaps.Colormap;
+import com.er453r.neural.tests.colormaps.Jet;
+import com.er453r.neural.tests.colormaps.Inferno;
+import com.er453r.neural.tests.colormaps.Magma;
+import com.er453r.neural.tests.colormaps.Plasma;
+import com.er453r.neural.tests.colormaps.Viridis;
+import com.er453r.neural.tests.colormaps.Cold;
+import com.er453r.neural.tests.Colormap;
 import com.er453r.neural.tests.colormaps.Hot;
 import haxe.ds.Vector;
 import haxe.Timer;

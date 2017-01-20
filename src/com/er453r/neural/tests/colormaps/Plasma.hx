@@ -1,7 +1,7 @@
 package com.er453r.neural.tests.colormaps;
 
-class Plasma implements Colormap{
-	var data:Array<Array<Float>> = [
+class Plasma extends Colormap{
+	private static var data:Array<Array<Float>> = [
 		[0.050383, 0.029803, 0.527975],
 		[0.063536, 0.028426, 0.533124],
 		[0.075353, 0.027206, 0.538007],
@@ -260,17 +260,7 @@ class Plasma implements Colormap{
 		[0.940015, 0.975158, 0.131326]
 	];
 
-	public function new(){}
-
-	public function getColor(value:Float):Color{
-		if(value < 0)
-			value = 0;
-
-		if(value > 1)
-			value = 1;
-
-		var color:Array<Float> = data[Math.floor(255 * value)];
-
-		return new Color(Std.int(255 * color[0]), Std.int(255 * color[1]), Std.int(255 * color[2]));
+	public function new(buckets:UInt = 266){
+		super(data, buckets);
 	}
 }
