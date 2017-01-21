@@ -20,7 +20,7 @@ import com.er453r.neural.nets.Network;
 
 class Test{
 	private var context:CanvasRenderingContext2D;
-	private var colormap:Colormap = new Hot();
+	private var colormap:Colormap = new Inferno();
 
 	private var fps:FPS = new FPS();
 	private var stats:Element;
