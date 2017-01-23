@@ -1,18 +1,10 @@
 package com.er453r.neural.tests;
 
-import com.er453r.neural.tests.colormaps.Jet;
-import com.er453r.neural.tests.colormaps.Inferno;
-import com.er453r.neural.tests.colormaps.Magma;
-import com.er453r.neural.tests.colormaps.Plasma;
 import com.er453r.neural.tests.colormaps.Viridis;
-import com.er453r.neural.tests.colormaps.Cold;
-import com.er453r.neural.tests.Colormap;
-import com.er453r.neural.tests.colormaps.Hot;
 import haxe.ds.Vector;
 import haxe.Timer;
 
 import js.html.Element;
-import js.html.CanvasRenderingContext2D;
 import js.Browser;
 
 import com.er453r.neural.nets.FlatNet;
@@ -21,7 +13,7 @@ import com.er453r.neural.nets.Network;
 class Test{
 	private var output:Display;
 	private var learning:Display;
-	private var colormap:Colormap = new Inferno();
+	private var learningMask:Display;
 
 	private var fps:FPS = new FPS();
 	private var stats:Element;
@@ -42,7 +34,8 @@ class Test{
 	private function init(){
 		stats = Browser.document.getElementById("fps");
 		output = new Display(width, height);
-		learning = new Display(width, height);
+		learning = new Display(width, height, new Viridis());
+		learningMask = new Display(width, height, new Viridis());
 		network = new FlatNet(width, height, 1);
 
 		var neurons:Vector<Neuron> = network.getNeurons();
@@ -59,12 +52,19 @@ class Test{
 
 	private function loop(){
 		network.update();
+
 		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
 			return neuron.value;
 		});
+
 		learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
 			return neuron.learning;
 		});
+
+		learningMask.generic(network.getNeurons(), function(neuron:Neuron):Float{
+			return neuron.learning > 0 ? 1 : 0;
+		});
+
 		stats.innerHTML = 'FPS ${fps.update()}';
 
 		Timer.delay(loop, 20);
