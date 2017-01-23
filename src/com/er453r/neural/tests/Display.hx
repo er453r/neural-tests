@@ -1,5 +1,6 @@
 package com.er453r.neural.tests;
 
+import com.er453r.neural.tests.colormaps.Inferno;
 import com.er453r.neural.tests.Colormap;
 import haxe.ds.Vector;
 
@@ -9,28 +10,32 @@ import js.html.ImageData;
 import js.html.CanvasElement;
 import js.Browser;
 
-import com.er453r.neural.nets.Network;
-
 class Display {
-	public static function insertCanvas(width:UInt, height:UInt, selector:String = "body") {
+	private var image:ImageData;
+	private var context:CanvasRenderingContext2D;
+	private var colormap:Colormap;
+
+	public function new(width:UInt, height:UInt, colormap:Colormap = null, selector:String = "body") {
+		this.colormap = colormap;
+
 		var canvas:CanvasElement = Browser.document.createCanvasElement();
 		canvas.width = width;
 		canvas.height = height;
 
-		Browser.document.querySelector(selector).appendChild(canvas);
+		context = canvas.getContext2d();
+		image = context.getImageData(0, 0, width, height);
 
-		return canvas.getContext2d();
+		if(this.colormap == null)
+			this.colormap = new Inferno();
+
+		Browser.document.querySelector(selector).appendChild(canvas);
 	}
 
-	public static function flatNet(network:Network, context:CanvasRenderingContext2D, colormap:Colormap) {
-		var image:ImageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
-
+	public function generic<T>(data:Vector<T>, collector:T->Float) {
 		var pixels:Uint8ClampedArray = image.data;
 
-		var neurons:Vector<Neuron> = network.getNeurons();
-
 		for(n in 0...Std.int(pixels.length/4)){
-			var color:Color = colormap.getColor(neurons[n].value);
+			var color:Color = colormap.getColor(collector(data[n]));
 
 			pixels[4 * n + 0] = color.r; // Red value
 			pixels[4 * n + 1] = color.g; // Green value

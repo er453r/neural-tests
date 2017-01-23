@@ -19,7 +19,8 @@ import com.er453r.neural.nets.FlatNet;
 import com.er453r.neural.nets.Network;
 
 class Test{
-	private var context:CanvasRenderingContext2D;
+	private var output:Display;
+	private var learning:Display;
 	private var colormap:Colormap = new Inferno();
 
 	private var fps:FPS = new FPS();
@@ -40,7 +41,8 @@ class Test{
 
 	private function init(){
 		stats = Browser.document.getElementById("fps");
-		context = Display.insertCanvas(width, height);
+		output = new Display(width, height);
+		learning = new Display(width, height);
 		network = new FlatNet(width, height, 1);
 
 		var neurons:Vector<Neuron> = network.getNeurons();
@@ -57,7 +59,12 @@ class Test{
 
 	private function loop(){
 		network.update();
-		Display.flatNet(network, context, colormap);
+		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
+			return neuron.value;
+		});
+		learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
+			return neuron.learning;
+		});
 		stats.innerHTML = 'FPS ${fps.update()}';
 
 		Timer.delay(loop, 20);
