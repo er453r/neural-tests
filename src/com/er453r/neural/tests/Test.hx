@@ -36,7 +36,7 @@ class Test{
 		output = new Display(width, height);
 		learning = new Display(width, height, new Viridis());
 		learningMask = new Display(width, height, new Viridis());
-		network = new FlatNet(width, height, 1);
+		network = new FlatNet(width, height, 5);
 
 		var neurons:Vector<Neuron> = network.getNeurons();
 
