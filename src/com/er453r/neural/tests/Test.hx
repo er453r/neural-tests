@@ -1,5 +1,6 @@
 package com.er453r.neural.tests;
 
+import com.er453r.neural.tests.colormaps.Parula;
 import com.er453r.neural.tests.colormaps.Viridis;
 import haxe.ds.Vector;
 import haxe.Timer;
@@ -20,8 +21,8 @@ class Test{
 
 	private var network:Network;
 
-	private var width:Int = 4 * 64;
-	private var height:Int = 4 * 64;
+	private var width:Int = 2 * 64;
+	private var height:Int = 2 * 64;
 
 	public static function main(){
 		new Test();
