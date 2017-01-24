@@ -20,8 +20,8 @@ class Test{
 
 	private var network:Network;
 
-	private var width:Int = 2 * 64;
-	private var height:Int = 2 * 64;
+	private var width:Int = 4 * 64;
+	private var height:Int = 4 * 64;
 
 	public static function main(){
 		new Test();
@@ -35,8 +35,7 @@ class Test{
 		stats = Browser.document.getElementById("fps");
 		output = new Display(width, height);
 		learning = new Display(width, height, new Viridis());
-		learningMask = new Display(width, height, new Viridis());
-		network = new FlatNet(width, height, 5);
+		network = new FlatNet(width, height, 1);
 
 		var neurons:Vector<Neuron> = network.getNeurons();
 
@@ -61,12 +60,8 @@ class Test{
 			return neuron.learning;
 		});
 
-		learningMask.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return neuron.learning > 0 ? 1 : 0;
-		});
-
 		stats.innerHTML = 'FPS ${fps.update()}';
 
-		Timer.delay(loop, 20);
+		Timer.delay(loop, 2);
 	}
 }
