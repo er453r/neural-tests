@@ -11,13 +11,28 @@ function workerBody() {
 		var ia = new Int32Array(sab);
 
 		ia[n] = n + 3;
+
+		postMessage(true);
 	};
+}
+
+var url = window.URL.createObjectURL(new Blob(['(', workerBody.toString(), ')()'],{type:'text/javascript'}));
+
+function createWorker(n ,sab) {
+	return new Promise((resolve, reject) => {
+		var worker = new Worker(url);
+		worker.postMessage({id: n, sab: sab}, [sab]);
+		worker.onmessage = function(event){
+			resolve(event.data);
+		};
+		worker.onerror = function(event) {
+			reject(event.error);
+		};
+	});
 }
 
 document.addEventListener("DOMContentLoaded", function(){
 	console.log("ready!");
-	
-	var url = window.URL.createObjectURL(new Blob(['(', workerBody.toString(), ')()'],{type:'text/javascript'}));
 
 	var threads = 5;
 
@@ -28,15 +43,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
 	console.dir(ia);
 
-	for(var n  = 0; n < threads; n++){
-		var worker = new Worker(url);
+	for(var n  = 0; n < threads; n++)
+		workers.push(createWorker(n ,sab));
 
-		worker.postMessage({id: n, sab: sab}, [sab]);
-
-		workers.push(workers);
-	}
-
-	setTimeout(function () {
+	Promise.all(workers).then(() => {
 		console.dir(ia);
-	}, 2000);
+	}).catch(error => {
+		console.log('error!' + error);
+	});
 });
