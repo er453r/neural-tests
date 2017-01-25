@@ -21,8 +21,8 @@ class Test{
 
 	private var network:Network;
 
-	private var width:Int = 2 * 64;
-	private var height:Int = 2 * 64;
+	private var width:Int = 4 * 64;
+	private var height:Int = 4 * 64;
 
 	public static function main(){
 		new Test();
@@ -50,18 +50,24 @@ class Test{
 		loop();
 	}
 
+	private var skip:Int = 0;
+
 	private function loop(){
 		network.update();
 
-		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return neuron.value;
-		});
+		if(skip++ % 4 == 0){
+			output.generic(network.getNeurons(), function(neuron:Neuron):Float{
+				return neuron.value;
+			});
 
-		learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return neuron.learning;
-		});
+			learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
+				return neuron.learning;
+			});
 
-		stats.innerHTML = 'FPS ${fps.update()}';
+			stats.innerHTML = 'FPS ${fps.update()}';
+		}
+		else
+			fps.update();
 
 		Timer.delay(loop, 2);
 	}
