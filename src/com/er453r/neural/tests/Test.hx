@@ -47,11 +47,11 @@ class Test{
 
 		trace('${neurons.length} neurons, ${synapses} synapses');
 
-		Parallel.forEach(network.getNeurons(), function(neuron:Neuron){
-			var derp:Float = neuron.value + 1;
+		Parallel.forEach([1, 2, 3], function(value:Int){
+			trace("derp " + value);
 		});
 
-		loop();
+		//loop();
 	}
 
 	private var skip:Int = 0;

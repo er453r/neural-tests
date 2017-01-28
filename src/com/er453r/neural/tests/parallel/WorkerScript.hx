@@ -1,29 +1,20 @@
 package com.er453r.neural.tests.parallel;
 
-import haxe.PosInfos;
 class WorkerScript {
-	#if !macro
-	public static function __init__() {
-		untyped __js__("onmessage = WorkerScript.prototype.messageHandler");
-	}
-	#end
-
 	#if macro
-	public static function getFilePosInfos():PosInfos{
+	public static function getFilePosInfos(){
 		return Parallel.getCallerPosInfos();
 	}
-	#end
+	#else
 
-	public function new(){}
+	public static function job(){}
 
-	public function messageHandler(event) {
-		switch event.data {
-			// Do whatever...
-			// Here, for testing, we simply bounce back the data we got...
-			case _: postMessage(event.data);
-		}
+	public static function __init__() {
+		untyped __js__("onmessage = WorkerScript.messageHandler");
 	}
 
-	// The following line seems to be needed only by the compiler...
-	public function postMessage(message) {}
+	public static function messageHandler(event) {
+		job(cast event.data);
+	}
+	#end
 }
