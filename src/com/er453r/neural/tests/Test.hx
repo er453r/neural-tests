@@ -1,6 +1,6 @@
 package com.er453r.neural.tests;
 
-import com.er453r.neural.tests.colormaps.Parula;
+import com.er453r.neural.tests.parallel.Parallel;
 import com.er453r.neural.tests.colormaps.Viridis;
 import haxe.ds.Vector;
 import haxe.Timer;
@@ -48,7 +48,7 @@ class Test{
 		trace('${neurons.length} neurons, ${synapses} synapses');
 
 		Parallel.forEach(network.getNeurons(), function(neuron:Neuron){
-			neuron;
+			var derp:Float = neuron.value + 1;
 		});
 
 		loop();

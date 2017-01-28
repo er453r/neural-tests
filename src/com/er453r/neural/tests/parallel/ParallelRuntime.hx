@@ -1,20 +1,6 @@
-package com.er453r.neural.tests;
+package com.er453r.neural.tests.parallel;
 
-import haxe.macro.ExprTools;
-import haxe.macro.Expr.ExprOf;
-import haxe.macro.Expr;
-
-/*import js.html.Worker;
-import js.Promise;
-import js.html.URL;
-import js.html.Blob;*/
-
-import haxe.ds.Vector;
-
-class Parallel {
-	public function new() {
-	}
-/*
+class ParallelRuntime {
 	private static function createWorker(n:UInt, url:String):Promise<Int>{
 		return new Promise<Int>(function(resolve:Int->Void, reject:Dynamic->Void){
 			var worker = new Worker(url);
@@ -29,25 +15,8 @@ class Parallel {
 		});
 	}
 
-	private static function workerBase() {
-		trace('started!');
-
-		function messageHandler(event){
-			var n = event.data.id;
-
-			trace('id = ' + event.data.id);
-
-			untyped __js__('postMessage(0)');
-		};
-
-		untyped __js__('onmessage = messageHandler');
-	}
-*/
-	public static macro function forEach<T>(data:ExprOf<Vector<T>>, job:ExprOf<T->Void>):Expr{
-		trace(job.pos);
-		trace(ExprTools.toString(job));
-
-		/*if(parallel){
+	public static function forEach() {
+		if(parallel){
 			var jobBody:String = untyped __js__('job.toString()') + "\n\n";
 
 			jobBody = StringTools.replace(jobBody, "function (", "function jon(");
@@ -71,8 +40,7 @@ class Parallel {
 		else{
 			for(object in data)
 				job(object);
-		}*/
+		}
 
-		return macro {};
 	}
 }
