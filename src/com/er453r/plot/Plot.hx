@@ -5,6 +5,8 @@ import js.html.svg.SVGElement;
 import js.Browser;
 
 class Plot {
+	private static inline var MARGIN:Float = 0.2;
+
 	private var path:PathElement;
 
 	private var width:UInt;
@@ -36,11 +38,9 @@ class Plot {
 		var max:Float = max(data);
 
 		var horizontalScale:Float = width / data.length;
-		var verticalScale:Float = height / (max - min);
+		var verticalScale:Float = 1 / (max - min);
 
 		var pathString:String = "";
-
-		trace(max);
 
 		for(n in 0...data.length){
 			var value:Float = data[n];

@@ -39,7 +39,7 @@ class Test{
 		stats = Browser.document.getElementById("fps");
 		output = new Image(width, height);
 		learning = new Image(width, height, new Viridis());
-		network = new FlatNet(width, height, 2);
+		network = new FlatNet(width, height, 1);
 		plot = new Plot(width, height);
 
 		var neurons:Vector<Neuron> = network.getNeurons();
@@ -70,7 +70,7 @@ class Test{
 				return neuron.learning;
 			});
 
-			var outputIndex:UInt = Std.int(height / 2) * width + Std.int(2 * width / 4);
+			var outputIndex:UInt = Std.int(height / 2) * width + Std.int(3 * width / 4);
 
 			outs.push(network.getNeurons().get(outputIndex).value);
 
