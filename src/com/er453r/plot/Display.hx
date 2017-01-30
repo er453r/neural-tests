@@ -1,7 +1,5 @@
-package com.er453r.neural.tests;
+package com.er453r.plot;
 
-import com.er453r.neural.tests.colormaps.Inferno;
-import com.er453r.neural.tests.Colormap;
 import haxe.ds.Vector;
 
 import js.html.CanvasRenderingContext2D;
@@ -9,6 +7,8 @@ import js.html.Uint8ClampedArray;
 import js.html.ImageData;
 import js.html.CanvasElement;
 import js.Browser;
+
+import com.er453r.plot.colormaps.Inferno;
 
 class Display {
 	private var image:ImageData;

@@ -1,4 +1,4 @@
-package com.er453r.neural.tests;
+package com.er453r.plot;
 
 class Colormap {
 	private var lut:Array<Array<Float>>;

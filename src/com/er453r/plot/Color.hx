@@ -1,4 +1,4 @@
-package com.er453r.neural.tests;
+package com.er453r.plot;
 
 class Color {
 	public var r:UInt;

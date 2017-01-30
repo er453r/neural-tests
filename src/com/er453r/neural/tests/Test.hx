@@ -6,11 +6,11 @@ import haxe.Timer;
 import js.html.Element;
 import js.Browser;
 
-import com.er453r.parallel.Parallel;
+import com.er453r.plot.colormaps.Viridis;
+import com.er453r.plot.Display;
 
 import com.er453r.neural.nets.FlatNet;
 import com.er453r.neural.nets.Network;
-import com.er453r.neural.tests.colormaps.Viridis;
 
 class Test{
 	private var output:Display;
@@ -47,10 +47,6 @@ class Test{
 			synapses += neuron.inputs.length;
 
 		trace('${neurons.length} neurons, ${synapses} synapses');
-
-		Parallel.forEach([1, 2, 3], function(value:Int){
-			trace("derp " + value);
-		});
 
 		//loop();
 	}

@@ -1,4 +1,4 @@
-package com.er453r.neural.tests.colormaps;
+package com.er453r.plot.colormaps;
 
 class Parula extends Colormap{
 	private static var data:Array<Array<Float>> = [
