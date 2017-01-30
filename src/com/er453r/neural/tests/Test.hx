@@ -1,5 +1,6 @@
 package com.er453r.neural.tests;
 
+import com.er453r.plot.Plot;
 import haxe.ds.Vector;
 import haxe.Timer;
 
@@ -7,15 +8,16 @@ import js.html.Element;
 import js.Browser;
 
 import com.er453r.plot.colormaps.Viridis;
-import com.er453r.plot.Display;
+import com.er453r.plot.Image;
 
 import com.er453r.neural.nets.FlatNet;
 import com.er453r.neural.nets.Network;
 
 class Test{
-	private var output:Display;
-	private var learning:Display;
-	private var learningMask:Display;
+	private var output:Image;
+	private var learning:Image;
+	private var learningMask:Image;
+	private var plot:Plot;
 
 	private var fps:FPS = new FPS();
 	private var stats:Element;
@@ -35,9 +37,10 @@ class Test{
 
 	private function init(){
 		stats = Browser.document.getElementById("fps");
-		output = new Display(width, height);
-		learning = new Display(width, height, new Viridis());
-		network = new FlatNet(width, height, 1);
+		output = new Image(width, height);
+		learning = new Image(width, height, new Viridis());
+		network = new FlatNet(width, height, 2);
+		plot = new Plot(width, height);
 
 		var neurons:Vector<Neuron> = network.getNeurons();
 
@@ -48,10 +51,12 @@ class Test{
 
 		trace('${neurons.length} neurons, ${synapses} synapses');
 
-		//loop();
+		loop();
 	}
 
 	private var skip:Int = 0;
+
+	private var outs:Array<Float> = [];
 
 	private function loop(){
 		network.update();
@@ -64,6 +69,15 @@ class Test{
 			learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
 				return neuron.learning;
 			});
+
+			var outputIndex:UInt = Std.int(height / 2) * width + Std.int(2 * width / 4);
+
+			outs.push(network.getNeurons().get(outputIndex).value);
+
+			while(outs.length > 100)
+				outs.shift();
+
+			plot.floats(outs);
 
 			stats.innerHTML = 'FPS ${fps.update()}';
 		}

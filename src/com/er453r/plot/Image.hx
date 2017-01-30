@@ -10,7 +10,7 @@ import js.Browser;
 
 import com.er453r.plot.colormaps.Inferno;
 
-class Display {
+class Image {
 	private var image:ImageData;
 	private var context:CanvasRenderingContext2D;
 	private var colormap:Colormap;
