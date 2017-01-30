@@ -1,15 +1,16 @@
 package com.er453r.neural.tests;
 
-import com.er453r.neural.tests.parallel.Parallel;
-import com.er453r.neural.tests.colormaps.Viridis;
 import haxe.ds.Vector;
 import haxe.Timer;
 
 import js.html.Element;
 import js.Browser;
 
+import com.er453r.parallel.Parallel;
+
 import com.er453r.neural.nets.FlatNet;
 import com.er453r.neural.nets.Network;
+import com.er453r.neural.tests.colormaps.Viridis;
 
 class Test{
 	private var output:Display;
