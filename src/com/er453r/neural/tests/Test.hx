@@ -39,6 +39,7 @@ class Test{
 		stats = Browser.document.getElementById("fps");
 		output = new Image(width, height);
 		learning = new Image(width, height, new Viridis());
+		learningMask = new Image(width, height, new Viridis());
 		network = new FlatNet(width, height, 1);
 		plot = new Plot(width, height);
 
@@ -64,6 +65,10 @@ class Test{
 		if(skip++ % 4 == 0){
 			output.generic(network.getNeurons(), function(neuron:Neuron):Float{
 				return neuron.value;
+			});
+
+			learningMask.generic(network.getNeurons(), function(neuron:Neuron):Float{
+				return neuron.value > 0.000001 ? 1 : 0;
 			});
 
 			learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
