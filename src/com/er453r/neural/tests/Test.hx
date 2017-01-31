@@ -24,8 +24,8 @@ class Test{
 
 	private var network:Network;
 
-	private var width:Int = 1 * 64;
-	private var height:Int = 1 * 64;
+	private var width:Int = 2 * 64;
+	private var height:Int = 2 * 64;
 
 	public static function main(){
 		new Test();
