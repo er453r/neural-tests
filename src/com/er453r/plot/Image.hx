@@ -31,11 +31,18 @@ class Image {
 		Browser.document.querySelector(selector).appendChild(canvas);
 	}
 
-	public function generic<T>(data:Vector<T>, collector:T->Float) {
+	public function generic<T>(vector:Vector<T>, collector:T->Float) {
+		var data:Array<Float> = collect(vector, collector);
+
+		var min:Float = PlotUtils.min(data);
+		var max:Float = PlotUtils.max(data);
+
+		var scale:Float = (max == min) ? 0 : 1 / (max - min);
+
 		var pixels:Uint8ClampedArray = image.data;
 
 		for(n in 0...Std.int(pixels.length/4)){
-			var color:Color = colormap.getColor(collector(data[n]));
+			var color:Color = colormap.getColor((data[n] - min) * scale);
 
 			pixels[4 * n + 0] = color.r; // Red value
 			pixels[4 * n + 1] = color.g; // Green value
@@ -44,5 +51,9 @@ class Image {
 		}
 
 		context.putImageData(image, 0, 0);
+	}
+
+	private function collect<T>(data:Vector<T>, collector:T->Float):Array<Float>{
+		return [for (item in data) collector(item)];
 	}
 }

@@ -1,5 +1,6 @@
 package com.er453r.plot;
 
+import com.er453r.plot.PlotUtils;
 import js.html.svg.PathElement;
 import js.html.svg.SVGElement;
 import js.Browser;
@@ -34,8 +35,8 @@ class Plot {
 	}
 
 	public function floats(data:Array<Float>) {
-		var min:Float = min(data);
-		var max:Float = max(data);
+		var min:Float = PlotUtils.min(data);
+		var max:Float = PlotUtils.max(data);
 
 		var horizontalScale:Float = width / data.length;
 		var verticalScale:Float = 1 / (max - min);
@@ -58,25 +59,5 @@ class Plot {
 		}
 
 		path.setAttribute("d", pathString);
-	}
-
-	private function min(data:Array<Float>):Float {
-		var min:Float = data[0];
-
-		for(n in 0...data.length)
-			if(data[n] < min)
-				min = data[n];
-
-		return min;
-	}
-
-	private function max(data:Array<Float>):Float {
-		var max:Float = data[0];
-
-		for(n in 0...data.length)
-			if(data[n] > max)
-				max = data[n];
-
-		return max;
 	}
 }
