@@ -24,8 +24,8 @@ class Test{
 
 	private var network:Network;
 
-	private var width:Int = 1 * 64;
-	private var height:Int = 1 * 64;
+	private var width:Int = 1 * 9;
+	private var height:Int = 1 * 7;
 
 	public static function main(){
 		new Test();
@@ -89,6 +89,6 @@ class Test{
 		else
 			fps.update();
 
-		Timer.delay(loop, 2);
+		Timer.delay(loop, 1000);
 	}
 }
