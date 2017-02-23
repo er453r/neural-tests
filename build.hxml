@@ -2,4 +2,4 @@
 -cp src
 -main com.er453r.neural.tests.Test
 -js neural-tests.js
--lib neural
+-lib neural hxplotlib
