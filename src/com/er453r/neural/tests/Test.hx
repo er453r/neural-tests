@@ -1,5 +1,9 @@
 package com.er453r.neural.tests;
 
+import com.er453r.neural.mutators.LearningWTA;
+import com.er453r.neural.mutators.PositiveWeights;
+import com.er453r.neural.mutators.Decay;
+import com.er453r.neural.mutators.WTA;
 import com.er453r.plot.Plot;
 import haxe.ds.Vector;
 import haxe.Timer;
@@ -23,8 +27,8 @@ class Test{
 
 	private var network:Network;
 
-	private var width:Int = 1 * 32;
-	private var height:Int = 1 * 32;
+	private var width:Int = 1 * 9;
+	private var height:Int = 1 * 7;
 
 	public static function main(){
 		new Test();
@@ -38,7 +42,14 @@ class Test{
 		stats = Browser.document.getElementById("fps");
 		output = new Image(width, height);
 		learning = new Image(width, height, new Viridis());
-		network = new FlatNet(width, height, 1);
+		network = new FlatNet(width, height, 1, function(){
+			return new Neuron([
+				new WTA(),
+				new Decay(0.01, 0.9),
+				new PositiveWeights(0.5),
+				new LearningWTA()
+			]);
+		});
 		plot = new Plot(width, height);
 
 		var neurons:Vector<Neuron> = network.getNeurons();
@@ -53,11 +64,20 @@ class Test{
 		loop();
 	}
 
-	private var skip:Int = 0;
+	private var iter:Int = 0;
 
 	private var outs:Array<Float> = [];
 
 	private function loop(){
+		var inputIndex:UInt = Std.int(height / 2) * width + Std.int(width / 4);
+		var outputIndex:UInt = Std.int(height / 2) * width + Std.int(3 * width / 4);
+		var neurons:Vector<Neuron> = network.getNeurons();
+
+		if(iter > 5)
+			neurons[inputIndex].value = 1;
+		neurons[outputIndex].learning = 1;
+		neurons[inputIndex].learning = 0;
+
 		network.update();
 
 		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
@@ -81,6 +101,14 @@ class Test{
 
 		fps.update();
 
-		Timer.delay(loop, 10);
+
+		if(iter > 4)
+			neurons[inputIndex].value = 1;
+		neurons[outputIndex].learning = 1;
+		neurons[inputIndex].learning = 0;
+
+		iter++;
+
+		Timer.delay(loop, 500);
 	}
 }
