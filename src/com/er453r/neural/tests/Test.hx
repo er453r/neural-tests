@@ -27,8 +27,8 @@ class Test{
 
 	private var network:Network;
 
-	private var width:Int = 1 * 9;
-	private var height:Int = 1 * 7;
+	private var width:Int = 4 * 32;
+	private var height:Int = 4 * 32;
 
 	public static function main(){
 		new Test();
@@ -68,6 +68,20 @@ class Test{
 
 	private var outs:Array<Float> = [];
 
+	private function logScale(value:Float, min:Float, max:Float):Float{
+		if(value < min)
+			return 0;
+
+		if(value > max)
+			return 1;
+
+		var minLog:Float = Math.log(min) / Math.log(19);
+		var maxLog:Float = Math.log(max) / Math.log(19);
+		var result:Float = Math.log(value) / Math.log(19);
+
+		return (result - minLog) / (maxLog - minLog);
+	}
+
 	private function loop(){
 		var inputIndex:UInt = Std.int(height / 2) * width + Std.int(width / 4);
 		var outputIndex:UInt = Std.int(height / 2) * width + Std.int(3 * width / 4);
@@ -81,7 +95,7 @@ class Test{
 		network.update();
 
 		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return neuron.value;
+			return logScale(neuron.value, 1e-16, 1);
 		});
 
 		learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
@@ -109,6 +123,6 @@ class Test{
 
 		iter++;
 
-		Timer.delay(loop, 500);
+		Timer.delay(loop, 5);
 	}
 }
