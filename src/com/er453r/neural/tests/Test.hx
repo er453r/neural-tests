@@ -68,19 +68,7 @@ class Test{
 
 	private var outs:Array<Float> = [];
 
-	private function logScale(value:Float, min:Float, max:Float):Float{
-		if(value < min)
-			return 0;
-
-		if(value > max)
-			return 1;
-
-		var minLog:Float = Math.log(min) / Math.log(19);
-		var maxLog:Float = Math.log(max) / Math.log(19);
-		var result:Float = Math.log(value) / Math.log(19);
-
-		return (result - minLog) / (maxLog - minLog);
-	}
+	private var log:LogScale = new LogScale();
 
 	private function loop(){
 		var inputIndex:UInt = Std.int(height / 2) * width + Std.int(width / 4);
@@ -95,7 +83,7 @@ class Test{
 		network.update();
 
 		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return logScale(neuron.value, 1e-16, 1);
+			return log.scale(neuron.value);
 		});
 
 		learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
