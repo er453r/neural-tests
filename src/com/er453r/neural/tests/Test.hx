@@ -83,7 +83,7 @@ class Test{
 		network.update();
 
 		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return (neuron.value);
+			return log.scale(neuron.value);
 		});
 
 		learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
