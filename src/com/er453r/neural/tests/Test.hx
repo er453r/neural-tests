@@ -47,7 +47,7 @@ class Test{
 				new WTA(),
 				new Decay(0.01, 0.9),
 				new PositiveWeights(0.5),
-				new LearningWTA()
+				new DepthLearning()
 			]);
 		});
 		plot = new Plot(width, height);
@@ -83,11 +83,11 @@ class Test{
 		network.update();
 
 		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return log.scale(neuron.value);
+			return neuron.value;
 		});
 
 		learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return neuron.learning;
+			return 1 - neuron.learning;
 		});
 
 		var outputIndex:UInt = Std.int(height / 2) * width + Std.int(3 * width / 4);
