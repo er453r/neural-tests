@@ -5,8 +5,9 @@ class DepthLearning extends NeuronMutator{
 
 	override public function onStep(neuron:Neuron){
 		// creates gradient for the singal to propagate into
-		var max:Float = 0;
+		var max:Float = neuron.outputs[0].output.learning * neuron.outputs[0].weight;
 		var maxLearner:Synapse = neuron.outputs[0];
+		var found:Bool = false;
 
 		for(output in neuron.outputs){
 			var value:Float = output.output.learning * output.weight;
@@ -14,12 +15,15 @@ class DepthLearning extends NeuronMutator{
 			if(max < value){
 				max = value;
 				maxLearner = output;
+				found = true;
 			}
 		}
 
 		neuron.learn = maxLearner.output.learning * maxLearner.weight;
 
 		// makes the signal follow the steepest slope
-		maxLearner.weight += 0.001;
+		if(found){
+			maxLearner.weight = maxLearner.weight * 0.9 + 0.1;
+		}
 	}
 }

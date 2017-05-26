@@ -83,11 +83,11 @@ class Test{
 		network.update();
 
 		output.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return neuron.value;
+			return (neuron.value);
 		});
 
 		learning.generic(network.getNeurons(), function(neuron:Neuron):Float{
-			return 1 - neuron.learning;
+			return 1 - log.scale(neuron.learning);
 		});
 
 		var outputIndex:UInt = Std.int(height / 2) * width + Std.int(3 * width / 4);
