@@ -12,6 +12,8 @@ class DepthLearning extends NeuronMutator{
 		for(output in neuron.outputs){
 			var value:Float = output.output.learning * output.weight;
 
+			output.weight *= 0.9;
+
 			if(max < value){
 				max = value;
 				maxLearner = output;
