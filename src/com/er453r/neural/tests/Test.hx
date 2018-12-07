@@ -99,9 +99,10 @@ class Test{
 
 		plot.floats(outs);
 
-		stats.innerHTML = 'FPS ${fps.update()}';
-
-		fps.update();
+		if (iter % 100 == 0)
+			stats.innerHTML = 'FPS ${fps.update()}';
+		else
+			fps.update();
 
 
 		if(iter > 4)
